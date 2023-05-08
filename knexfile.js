@@ -11,7 +11,7 @@ module.exports = {
 
       password: process.env.PG_PASS || 'postgres',
       database: process.env.PG_DB || 'not-pinterest',
-=======
+
       password: process.env.PG_PASS || '1998', //changes password 
       database: process.env.PG_DB || 'notpinterest', //changed name from 'notpinterest to not-pinterest
 

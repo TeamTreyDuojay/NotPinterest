@@ -4,6 +4,7 @@ const postedimages = require('./controllers/posted-images');
 const addModels = require('./middleware/add-models');
 const checkAuthentication = require('./middleware/check-authentication');
 const PostedImages = require('./db/models/posted-images');
+const likedImages = require('./db/models/liked-images');
 
 const Router = express.Router();
 Router.use(addModels);

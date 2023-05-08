@@ -14,6 +14,7 @@ const main = async () => {
     .addEventListener('submit', async (event) => {
       event.preventDefault();
       signupAndLoginHandler('/api/users/login', event.target);
+      
     });
 };
 

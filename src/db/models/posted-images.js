@@ -1,3 +1,4 @@
+
 // const knex = require('../knex');
 // const authUtils = require('../../utils/auth-utils');
 
@@ -152,29 +153,63 @@
 // });
 
 
+require('dotenv').config();
 const knex = require('../knex');
 const authUtils = require('../../utils/auth-utils');
-
+let yo = 0;
 class PostedImages {
-  #passwordHash = null;
+
 
   // This constructor is used ONLY by the model
   // to provide the controller with instances that
-  // have access to the instance methods isValidPassword
+
   // and update.
   constructor({url,id}) {
     this.url = url;
     this.id = id;
   }
 
-  static async create(url,id) {
-    try {
-      // const passwordHash = await authUtils.hashPassword(password);
 
-      const query = `INSERT INTO posted_images (img_URL,user_id)
-        VALUES (?) RETURNING *`;
+//   static async create(url,id) {//takes in the user_id and image url then places it into the table
+//     try {
+// //console.log(id)
+//       const query = `INSERT INTO posted_images(img_url,user_id)
+//         VALUES (?, ?) RETURNING *`;
+//       const { rows: [img] } = await knex.raw(query, [url,id]);
+//      // console.log(img.id)//I place this here so you can console.log to see what its returning
+//      yo = img.id 
+//       return img;
+//     } catch (err) {
+//       console.error(err);
+//       return null;
+//     }
+//   }
+  
+
+
+static async create(url,id) {//takes in the user_id and image url then places it into the table
+    try {
+//console.log(id)
+      const query = `INSERT INTO posted_images(img_url,user_id)
+        VALUES (?, ?) RETURNING *`;
       const { rows: [img] } = await knex.raw(query, [url,id]);
-      return new PostedImages(img);
+     // console.log(img.id)//I place this here so you can console.log to see what its returning
+  console.log("it wrk")
+      return img;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
+  static async list() {
+    try {
+      const query = 'SELECT * FROM posted_images';
+      const { rows } = await knex.raw(query);
+      //return rows
+      console.log("list")
+     return rows
+     //.map((post) => new PostedImages(post));
     } catch (err) {
       console.error(err);
       return null;
@@ -182,9 +217,80 @@ class PostedImages {
   }
 
 
-  isValidPassword = async (password) => (
-    authUtils.isValidPassword(password, this.#passwordHash)
-  );
+  static async delete(id) {
+    try {
+      //console.log(title)
+      //tit = yo
+      console.log("deleted")
+      console.log(id)
+      const result = await knex.raw(`
+        DELETE FROM posted_images
+        WHERE id=?
+        RETURNING *
+      `, [id]);
+     // yo = result.rows[0].id
+//console.log(yo)
+      return result.rows[0];
+
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
+  // static async delete(yo) {
+  //   try {
+  //     const result = await knex.raw(`
+  //       DELETE FROM posted_images
+  //       WHERE id=?
+  //       RETURNING *
+  //     `, [yo]);
+  //     return result.rows[0];
+  //   } catch (err) {
+  //     console.error(err);
+  //     return null;
+  //   }
+  // }
+
+  // static async delete(url,id) {
+  //   try {
+  //     const result = await knex.raw(`
+  //       DELETE FROM posted_images
+  //       WHERE id=?
+  //       RETURNING *
+  //     `, [url,id]);
+  //     return result.rows[0];
+  //   } catch (err) {
+  //     console.error(err);
+  //     return null;
+  //   }
+  // }
+
+  // static async delete(id) {
+  //   try {
+  //     id = yo
+  //     console.log(id)
+  //     const result = await knex.raw(`
+  //       DELETE FROM posted_images
+  //       WHERE id = ?
+  //       RETURNING *
+  //     `, [id]);
+  //     return result.rows[0];
+  //   } catch (err) {
+  //     console.error(err);
+  //     return null;
+  //   }
+  // }
+  
+
+
 }
+
+//YOU CAN RUN THIS AND PASS THINGS INTO IT TEST WHATS GONNA BE DISPLAYED IN THE TERMINAL AND IN YOUR TABLEPLUS
+// const test = async () => {
+//   const postObj = await PostedImages.delete(34)
+//   console.log(postObj)
+// }
+// test()
 
 module.exports = PostedImages;

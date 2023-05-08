@@ -1,4 +1,4 @@
-// Fetch Helpers
+
 const handleFetch = async (url, options) => {
   try {
     const response = await fetch(url, options);
@@ -59,14 +59,24 @@ const logOutHandler = async () => {
 
 // Nav Helper
 const setNav = (hasLoggedInUser) => {
-  const loggedOutNavHtml = `<ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="./create.html">Sign Up</a></li>
-    <li><a href="./login.html">Login</a></li>
-  </ul>`;
+  const loggedOutNavHtml = `
+  
+    <li><a class ="signUpLink" href="HomeLogOut.html">Home</a></li>
+    <li><a class = "remove" href="./create.html">Sign Up</a></li>
+    <li><a <a class = "remove" href="./login.html">Login</a></li>
+  `;
 
-  const loggedInNavHtml = `<ul>
+  // <li><a href="./posted-images.html">Post</a></li>
+  // <li><a href="./notSignIn.html">Sear</a></li>
+  //   <li><a href="./h.html"></a></li>
+  // <li><a href="./create.html">Sign Up</a></li>
+  //   <li><a href="./login.html">Login</a></li>
+
+  const loggedInNavHtml = `
+  <ul>
     <li><a href="/">Home</a></li>
+    <li><a href="./posted-images.html">Search Images</a></li>
+    <li><a href="./shares.html">My Shares</a></li>
     <li><a href="./user.html">Profile</a></li>
     <li><a href="./likes.html">Likes</a></li> 
   </ul>`;
@@ -74,18 +84,6 @@ const setNav = (hasLoggedInUser) => {
   const navHtml = hasLoggedInUser ? loggedInNavHtml : loggedOutNavHtml;
   document.querySelector('nav').innerHTML = navHtml;
 };
-
-// This is wonky. Once you learn about bundlers we won't have to
-// explicitly create globals. We just lack the tools right now.
-Object.assign(window, {
-  handleFetch,
-  getFetchOptions,
-  fetchLoggedInUser,
-  signupAndLoginHandler,
-  setNav,
-  logOutHandler,
-  updateUsernameHandler,
-});
 
 export {
   handleFetch,

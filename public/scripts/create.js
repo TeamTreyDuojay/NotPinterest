@@ -13,7 +13,9 @@ const main = async () => {
   document.querySelector('#create-form')
     .addEventListener('submit', async (event) => {
       event.preventDefault();
+      //console.log(event);
       signupAndLoginHandler('/api/users', event.target);
+      console.log(event.target) + "f";
     });
 };
 

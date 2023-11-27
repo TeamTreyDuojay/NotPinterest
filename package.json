@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "kickstart": "npm i && npm run migrate && npm run seed && npm start",
-    "start": "node src/index.js",
+    "start": "npm start",
     "dev": "nodemon ./src/index.js",
     "console": "node -r ./src/db/models/console.js",
     "connect": "psql -U postgres -d auth_example",
@@ -15,7 +15,16 @@
     "seed": "knex seed:run",
     "seed:make": "knex seed:make",
     "play:bcrypt": "nodemon ./playground-examples/bcrypt-example.js",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "build": "react-scripts build",
+    "start-react": "react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "name": "auth-example-bcrypt-session",
+    "deploy": "firebase deploy --only functions"
+  },
+  "hosting": {
+    "public": "build"
   },
   "keywords": [],
   "author": "",
@@ -29,13 +38,28 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "firebase": "^10.6.0",
+    "firebase-functions": "^4.5.0",
     "knex": "^2.4.2",
-    "pg": "^8.10.0"
+    "path-browserify": "^1.0.1",
+    "pg": "^8.10.0",
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "eslint": "^8.39.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "nodemon": "^2.0.22"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

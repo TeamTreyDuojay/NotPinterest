@@ -6,6 +6,8 @@ const checkAuthentication = require('./middleware/check-authentication');
 const PostedImages = require('./db/models/posted-images');
 const likedImages = require('./db/models/liked-images');
 
+const functions = require('firebase-functions');
+
 const Router = express.Router();
 Router.use(addModels);
 
@@ -99,6 +101,7 @@ Router.delete('/users/logout', userController.logout);
 //   };
 //   res.send(data);
 // })
+// exports.api = functions.https.onRequest(app);
 
 
 module.exports = Router;
